@@ -14,8 +14,11 @@ import SpaIcon from '@mui/icons-material/Spa';
 
 const pages = [
   { name: 'HOME', path: '/' },
-  { name: 'SERVICIOS', path: '/services' },
-  { name: 'ACERCA DE NOSOTROS', path: '/about' }
+  { name: 'SERVICIOS', path: '/servicios' },
+  { name: 'ACERCA DE NOSOTROS', path: '/about' },
+  { name: 'PERFIL', path: '/profile' },
+  { name: 'LOGIN', path: '/login' },
+  { name: 'SIGNUP', path: '/signup' }
 ];
 
 function NavbarComponent() {
@@ -29,8 +32,15 @@ function NavbarComponent() {
     setAnchorElNav(null);
   };
 
+  const isLoggedIn = Boolean(localStorage.getItem('token'));
+  const filteredPages = pages.filter(page => {
+    if (page.name === 'PERFIL') return isLoggedIn;
+    if (page.name === 'LOGIN' || page.name === 'SIGNUP') return !isLoggedIn;
+    return true;
+  });
+
   return (
-    <AppBar position="static" sx={{backgroundColor: '#4caf50'}}>
+    <AppBar position="static" sx={{backgroundColor: '#003366', boxShadow: '0 2px 8px #00336633'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 
@@ -78,7 +88,7 @@ function NavbarComponent() {
               }}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
+              {filteredPages.map((page) => (
                 <MenuItem key={page.path} onClick={handleCloseNavMenu}>
                   <Typography
                     component={Link}
@@ -115,13 +125,13 @@ function NavbarComponent() {
 
           {/* MENÚ VERSIÓN DESKTOP */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {filteredPages.map((page) => (
               <Button
                 key={page.path}
                 component={Link}
                 to={page.path}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: '#fff', display: 'block', fontWeight: 600, letterSpacing: 1, '&:hover': { color: '#0072ce', background: '#e6f0fa' } }}
               >
                 {page.name}
               </Button>

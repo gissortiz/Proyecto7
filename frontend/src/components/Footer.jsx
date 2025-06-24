@@ -6,23 +6,21 @@ const Footer = () => {
         <Box
             component="footer"
             sx={{
-                backgroundColor: '#C8E6C9',
-                color: 'black',
-                padding: '20px',
-                marginTop: '40px',
+                width: '100%',
+                backgroundColor: '#003366',
+                color: '#fff',
                 textAlign: 'center',
+                padding: '1.5rem 0',
+                marginTop: 'auto',
+                fontWeight: 500,
+                letterSpacing: 1,
+                fontSize: '1.1rem',
+                boxShadow: '0 -2px 8px #00336633',
             }}
         >
             <Typography variant="body1">
-                Verde en Casa © {new Date().getFullYear()} — Hecho por Gissella Ortiz
+                © {new Date().getFullYear()} Moviliza - Todos los derechos reservados
             </Typography>
-           
-            <Box sx={{ mt: 2 }}>
-                <Typography variant="body2">
-                    📸 Instagram: @verdeen.casa &nbsp; | &nbsp;
-                    🐦 Twitter: @verdeencasa_app
-                </Typography>
-            </Box>
         </Box>
     );
 };

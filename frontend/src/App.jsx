@@ -1,12 +1,8 @@
-import ServiceList from "./components/ServiceList";
+import { RouterProvider } from "react-router-dom";
+import router from "./Router";
 
 function App() {
-  return (
-    <div>
-      <h1>Servicios de Moviliza</h1>
-      <ServiceList />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

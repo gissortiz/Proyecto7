@@ -73,3 +73,22 @@ exports.deleteReservationById = async (req, res) => {
         });
     }
 };
+
+// Cambia el estado de la reserva a 'confirmada' (simula pago)
+exports.payReservation = async (req, res) => {
+    try {
+        const updatedReservation = await Reservation.findByIdAndUpdate(
+            req.params.id,
+            { status: 'confirmada' },
+            { new: true }
+        );
+        if (!updatedReservation)
+            return res.status(404).json({ message: 'Reserva no encontrada' });
+        return res.json({ updatedReservation });
+    } catch (error) {
+        return res.status(500).json({
+            msg: 'Hubo un error al confirmar el pago',
+            error: error.message
+        });
+    }
+};

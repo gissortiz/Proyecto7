@@ -1,9 +1,13 @@
 import React from 'react'
+import ServiceList from '../components/ServiceList';
 
-const services = () => {
+const Services = () => {
   return (
-    <div>services</div>
+    <div>
+      <h1 style={{textAlign:'center', margin:'1rem 0'}}>Todos los Servicios</h1>
+      <ServiceList />
+    </div>
   )
 }
 
-export default services
+export default Services

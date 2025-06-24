@@ -1,6 +1,7 @@
 const express = require('express');
 
-const { createReservation, getReservations, updateReservationById, deleteReservationById } = require('../controllers/reservation.controller');
+const { createReservation, getReservations, updateReservationById, deleteReservationById, payReservation } = require('../controllers/reservation.controller');
+const authMiddleware = require('../middleware/authorization');
 
 const reservationRouter = express.Router();
 
@@ -119,5 +120,8 @@ reservationRouter.put('/:id', updateReservationById); // http://localhost:3000/a
  *         description: Error al borrar la reserva
  */
 reservationRouter.delete('/:id', deleteReservationById); // http://localhost:3000/api/reservations/:id
+
+// Endpoint para simular pago de una reserva
+reservationRouter.put('/:id/pay', authMiddleware, payReservation); // http://localhost:3000/api/reservations/:id/pay
 
 module.exports = reservationRouter;

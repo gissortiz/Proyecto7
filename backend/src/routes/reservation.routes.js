@@ -53,7 +53,7 @@ reservationRouter.post('/', createReservation); // http://localhost:3000/api/res
  *       500:
  *         description: Error al obtener las reservas
  */
-reservationRouter.get('/', getReservations); // http://localhost:3000/api/reservations/
+reservationRouter.get('/', authMiddleware, getReservations); // http://localhost:3000/api/reservations/
 
 /**
  * @swagger

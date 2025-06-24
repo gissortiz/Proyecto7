@@ -7,6 +7,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import AdminServices from "./pages/AdminServices";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter ([
@@ -21,6 +22,7 @@ const router = createBrowserRouter ([
         { path: "/profile", element: (<ErrorBoundary> <Profile/> </ErrorBoundary>) },
         { path: "/login", element: (<ErrorBoundary> <Login/> </ErrorBoundary>) },
         { path: "/signup", element: (<ErrorBoundary> <Signup/> </ErrorBoundary>) },
+        { path: "/admin/servicios", element: (<ErrorBoundary> <AdminServices/> </ErrorBoundary>) },
     ]
 }
 ])

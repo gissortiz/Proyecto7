@@ -11,7 +11,15 @@ const Signup = () => {
     e.preventDefault();
     try {
       await axiosClient.post("/users/create", { username, email, password });
-      setMessage("Usuario registrado correctamente. Ahora puedes iniciar sesión.");
+      // Login automático tras registro
+      const res = await axiosClient.post("/users/login", { email, password });
+      localStorage.setItem("token", res.data);
+      const userRes = await axiosClient.get("/users/verify-user", {
+        headers: { Authorization: `Bearer ${res.data}` }
+      });
+      localStorage.setItem("userId", userRes.data.user._id);
+      setMessage("Registro exitoso. Redirigiendo...");
+      window.location.href = "/profile";
     } catch {
       setMessage("Error al registrar usuario");
     }
@@ -34,7 +42,7 @@ const Signup = () => {
         <input type="password" placeholder="Contraseña" value={password} onChange={e=>setPassword(e.target.value)} required style={{padding: 10, borderRadius: 8, border: '1px solid #0072ce', fontSize: 16}} />
         <button type="submit" style={{marginTop: 10}}>Registrarse</button>
       </form>
-      {message && <p style={{color: message.includes('correctamente') ? '#0072ce' : 'red', textAlign: 'center', marginTop: 16}}>{message}</p>}
+      {message && <p style={{color: message.includes('exitoso') ? '#0072ce' : 'red', textAlign: 'center', marginTop: 16}}>{message}</p>}
     </div>
   );
 };

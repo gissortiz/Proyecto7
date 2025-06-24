@@ -23,6 +23,8 @@ const Profile = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReservations(reservations.map(r => r._id === id ? { ...r, status: "confirmada" } : r));
+      // Despacha el evento para actualizar el badge del carrito
+      window.dispatchEvent(new Event('reservationsChanged'));
     } catch {
       setMessage("Error al pagar la reserva");
     }

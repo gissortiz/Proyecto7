@@ -22,7 +22,8 @@ exports.createReservation = async (req, res) => {
 
 exports.getReservations = async (req, res) => {
     try {
-        const reservations = await Reservation.find({})
+        // Solo mostrar reservas del usuario autenticado
+        const reservations = await Reservation.find({ user: req.user.id })
             .populate('service', 'name price') // trae nombre y precio del servicio
             .populate('user', 'username email'); // trae username y email del user
 

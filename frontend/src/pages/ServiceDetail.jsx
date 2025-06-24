@@ -28,6 +28,8 @@ const ServiceDetail = () => {
       });
       setMessage("Reserva realizada correctamente. Puedes ver el estado en tu perfil.");
       setSuccess(true);
+      // Despacha el evento para actualizar el badge del carrito
+      window.dispatchEvent(new Event('reservationsChanged'));
     } catch {
       setMessage("Error al reservar. Intenta de nuevo.");
     }

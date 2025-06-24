@@ -10,16 +10,17 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axiosClient.post("/users/login", { email, password });
-      localStorage.setItem("token", res.data); // Guarda el token
-      // Obtener userId
+      localStorage.setItem("token", res.data);
+      // Obtener datos completos del usuario (incluido el rol)
       const userRes = await axiosClient.get("/users/verify-user", {
         headers: { Authorization: `Bearer ${res.data}` }
       });
+      localStorage.setItem("user", JSON.stringify(userRes.data.user));
       localStorage.setItem("userId", userRes.data.user._id);
-      setMessage("Login exitoso");
+      setMessage("Login exitoso. Redirigiendo...");
       window.location.href = "/profile";
     } catch {
-      setMessage("Credenciales incorrectas");
+      setMessage("Usuario o contraseña incorrectos");
     }
   };
 

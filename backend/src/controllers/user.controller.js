@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
     try {
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
@@ -11,6 +11,7 @@ exports.createUser = async (req, res) => {
             username, 
             email, 
             password: hashedPassword,
+            role: role || 'customer',
          });
         return res.json({ newUser });
     } catch (error) {
@@ -57,7 +58,7 @@ exports.login = async (req, res) => {
         return res.status(400).json({ msg: 'Usuario o contraseña no corresponden' });
     }
 
-    const payload = { user: { id: foundUser.id }};
+    const payload = { user: { id: foundUser.id, role: foundUser.role } };
     jwt.sign(
         payload,
         process.env.SECRET,
@@ -87,7 +88,6 @@ exports.verifyUser = async (req, res) =>{
             msg: 'Hubo un error al consultar usuario',
             error
         })
-        
     }
 };
 
